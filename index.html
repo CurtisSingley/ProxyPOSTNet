@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HackSC 2020 Anti-Cyberharassment Demo</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script>
+		function submitPost() {
+			console.log("submitPost is called");
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+                    // Typical action to be performed when the document is ready:
+                    post_result = JSON.parse(xhttp.responseText);
+                    // alert("Your tweet is posted here: " + "https://twitter.com/" + post_result.user.screen_name + "/status/" + post_result.id_str);
+                    post_result_div = document.getElementById('post_result_div');
+                    post_result_div.innerHTML = "Your tweet is posted here: " + "https://twitter.com/" + post_result.user.screen_name + "/status/" + post_result.id_str;                    
+                    post_result_div.style.display = 'block';
+
+                    // setTimeout(function() {
+                    //     document.getElementById('post_result_div').style.display = 'none';
+                    // }, 3000);
+                }
+			};
+			xhttp.open("POST", "/poststatus?tweet=" + document.getElementById('post').value, true);
+			xhttp.send();
+		}
+	</script>
+</head>
+<body>
+	<!-- <i class="fab fa-twitter"></i> -->
+	<div class="jumbotron m-5" style="background-color: #91d0f6;">
+		<form>
+			<div class="btn-group dropright mb-3">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Site List
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" href="#">Twitter</a>
+				<a class="dropdown-item" href="#">Reddit</a>
+				<a class="dropdown-item" href="#">Washington Post</a>
+				<a class="dropdown-item" href="#">WeBoard</a>
+				<a class="dropdown-item" href="#">Engadget</a>
+			</div>
+			</div> <!-- div dropdown -->
+			<div class="form-group">
+			<label for="urlTarget" class="labels">URL</label>
+			<input type="text" class="form-control" id="url" aria-describedby="urlHelp" placeholder="Enter URL">
+			<small id="textHelp" class="form-text text-muted">We'll never ask for your password, we only use access tokens.</small>
+			</div>
+			<div class="form-group">
+			<label for="text" class="labels">Post</label>
+			<textarea class="form-control" id="post" rows="4" placeholder="What's happening?"></textarea>
+			<!-- <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"> -->
+			</div>
+			<!-- <div class="form-check"> -->
+			<!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+			<!-- <label class="form-check-label" for="exampleCheck1">Check me out</label> -->
+			<!-- </div> -->
+        </form>
+        <div class="float-right">
+            <img src="twitterBar.png" style="height:48px; border-radius:5px; margin-right:30px">
+            <!-- <svg viewBox="0 0 24 24"    ><g><path d="M19.75 2H4.25C3.01 2 2 3.01 2 4.25v15.5C2 20.99 3.01 22 4.25 22h15.5c1.24 0 2.25-1.01 2.25-2.25V4.25C22 3.01 20.99 2 19.75 2zM4.25 3.5h15.5c.413 0 .75.337.75.75v9.676l-3.858-3.858c-.14-.14-.33-.22-.53-.22h-.003c-.2 0-.393.08-.532.224l-4.317 4.384-1.813-1.806c-.14-.14-.33-.22-.53-.22-.193-.03-.395.08-.535.227L3.5 17.642V4.25c0-.413.337-.75.75-.75zm-.744 16.28l5.418-5.534 6.282 6.254H4.25c-.402 0-.727-.322-.744-.72zm16.244.72h-2.42l-5.007-4.987 3.792-3.85 4.385 4.384v3.703c0 .413-.337.75-.75.75z"></path><circle cx="8.868" cy="8.309" r="1.542"></circle></g></svg> -->
+            <button class="btn btn-primary" onclick="submitPost()">Post</button>
+            <a type="addAccount" href="/addSharer" target="_blank" class="text-dark btn btn-warning">Add Your Account</a>
+        </div>
+        <div id="post_result_div" class="alert alert-success" style="margin-top:5rem; display:none;" role="alert"></div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>
